@@ -1,4 +1,4 @@
-from modules.assistant_classes import *
+from modules.assistant_classes import AddressBook, Record
 
 
 def input_error(func):

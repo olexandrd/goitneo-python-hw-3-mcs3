@@ -1,4 +1,4 @@
-from modules.assistant_classes import *
+from modules.assistant_classes import AddressBook
 from modules.bot_commands import Commands, parse_input
 from modules.persistance import AddressBookFile
 
