@@ -5,7 +5,7 @@ from pathlib import Path
 class AddressBookFile:
     def __init__(self, filename):
         self.filename = filename
-        
+
     def save(self, filename, contacts):
         folder_path = Path.joinpath(Path.cwd(), ".data")
         folder_path.mkdir(exist_ok=True)

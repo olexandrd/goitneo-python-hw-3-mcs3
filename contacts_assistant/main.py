@@ -4,6 +4,7 @@ from modules.persistance import AddressBookFile
 
 ADDRESS_BOOK_FILE = "address_book.dat"
 
+
 def main():
     addressBookFile = AddressBookFile(ADDRESS_BOOK_FILE)
     contacts = AddressBook(addressBookFile.load(ADDRESS_BOOK_FILE))
@@ -29,14 +30,15 @@ def main():
         elif command == "all":
             print(command_helper.show_all(contacts))
         elif command == "add-birthday":
-            print(command_helper.add_birthday(args, contacts))  
+            print(command_helper.add_birthday(args, contacts))
             addressBookFile.save(ADDRESS_BOOK_FILE, contacts)
         elif command == "show-birthday":
             print(command_helper.show_birthday(args, contacts))
         elif command == "birthdays":
-            print(command_helper.birthdays(contacts))         
+            print(command_helper.birthdays(contacts))
         else:
             print("Invalid command.")
 
+
 if __name__ == "__main__":
-    main()            
+    main()

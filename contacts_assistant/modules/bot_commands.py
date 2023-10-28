@@ -1,15 +1,16 @@
 from modules.assistant_classes import *
 
+
 def input_error(func):
     def wrapper(*args, **kwargs):
         try:
             return func(*args, **kwargs)
         except ValueError:
             if func.__name__ == "add_contact":
-                cmd_name = func.__name__.rstrip('_contact')
+                cmd_name = func.__name__.rstrip("_contact")
                 cmd_args = "username phone\033[0m (10 digits)"
-            elif func.__name__ == "change_contact":    
-                cmd_name = func.__name__.rstrip('_contact')
+            elif func.__name__ == "change_contact":
+                cmd_name = func.__name__.rstrip("_contact")
                 cmd_args = "username old_phone new_phone\033[0m (10 digits)"
             elif func.__name__ == "add_birthday":
                 cmd_name = "add-birthday"
@@ -24,6 +25,7 @@ def input_error(func):
 
     return wrapper
 
+
 def parser_error(func):
     def wrapper(*args, **kwargs):
         try:
@@ -32,6 +34,7 @@ def parser_error(func):
             return "Empty command."
 
     return wrapper
+
 
 @parser_error
 def parse_input(user_input):
@@ -50,12 +53,11 @@ class Commands:
         name, phone = args
         if contacts.find(name):
             new_record = contacts.find(name)
-        else:    
+        else:
             new_record = Record(name)
         new_record.add_phone(phone)
         contacts.add_record(new_record)
         return "Contact added."
-
 
     @input_error
     def change_contact(self, args, contacts: AddressBook) -> str:
@@ -69,13 +71,10 @@ class Commands:
             res = "Contact not found. Please add contact first."
         return res
 
-
     @input_error
     def show_phone(self, args, contacts: AddressBook) -> str:
         name = args[0]
         return contacts.find(name)
-
-
 
     def show_all(self, contacts: AddressBook) -> str:
         res = str()
@@ -83,7 +82,7 @@ class Commands:
             res = res + f"{items},\n"
         res = res.rstrip(",\n")
         return res
-    
+
     @input_error
     def add_birthday(self, args, contacts: AddressBook) -> str:
         name, birthday_date = args
@@ -94,7 +93,7 @@ class Commands:
         else:
             res = "Contact not found. Please add contact first."
         return res
-    
+
     @input_error
     def show_birthday(self, args, contacts: AddressBook) -> str:
         name = args[0]
@@ -102,7 +101,7 @@ class Commands:
             res = contacts.show_birthday(name)
         else:
             res = "Contact not found. Please add contact first."
-        return res    
+        return res
 
     def birthdays(self, contacts: AddressBook) -> str:
         return contacts.get_birthdays_per_week()

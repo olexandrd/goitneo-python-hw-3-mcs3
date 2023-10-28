@@ -38,12 +38,12 @@ class Phone(Field):
     def __str__(self):
         return self.value
 
+
 class Birthday(Field):
     def __init__(self, value):
         self.__birthday = None
         super().__init__(value)
         super()
-
 
     @property
     def value(self):
@@ -57,18 +57,16 @@ class Birthday(Field):
         except:
             raise ValueError("Date format is invalid. It should be DD.MM.YYYY")
 
-
     def __repr__(self):
         return self.value
-    
+
     def __str__(self):
         return str(self.value)
-    
 
 
 class BirthdaysPerWeek:
     def __init__(self, contacts):
-        self.contacts = contacts    
+        self.contacts = contacts
 
     @classmethod
     def weekday_to_number(self, weekday):
@@ -82,7 +80,7 @@ class BirthdaysPerWeek:
             "Sunday",
         ]
         return weekdays.index(weekday)
-    
+
     def get_birthdays_per_week(self, contacts) -> defaultdict:
         today = datetime.today()
         res = defaultdict(list)
@@ -103,19 +101,21 @@ class BirthdaysPerWeek:
                 if day_of_week == "Saturday" or day_of_week == "Sunday":
                     day_of_week = "Monday"
                 res[day_of_week].append(d.name.value)
-        return dict(sorted(res.items(), key=lambda x: BirthdaysPerWeek.weekday_to_number(x[0])))
-    
+        return dict(
+            sorted(res.items(), key=lambda x: BirthdaysPerWeek.weekday_to_number(x[0]))
+        )
+
     def output(self, userdict) -> str:
         res = str()
         for k, v in userdict.items():
             value_string = re.sub(r"\]|\[|'", "", str(v))
             res = res + f"{k}: {value_string}\n"
-        res = res.rstrip("\n")    
+        res = res.rstrip("\n")
         return res
-    
+
     def __str__(self) -> str:
         return self.output(self.get_birthdays_per_week(self.contacts))
-    
+
 
 class Record:
     def __init__(self, name):
@@ -124,7 +124,7 @@ class Record:
         self.birthday = None
 
     def add_birthday(self, birthday):
-        self.birthday = Birthday(birthday)    
+        self.birthday = Birthday(birthday)
 
     def add_phone(self, phone: str):
         self.phones.append(Phone(phone))
@@ -149,7 +149,7 @@ class Record:
 
     def __str__(self):
         return f"Contact name: {self.name.value}, phones: {'; '.join(p.value for p in self.phones)}"
-    
+
     # def __repr__(self):
     #     birthday_str = f", birthday: {self.birthday}" if self.birthday is not None else ""
     #     return f"Contact name: {self.name.value}, phones: {'; '.join(p.value for p in self.phones)}{birthday_str}"
@@ -188,7 +188,7 @@ def main():
     john_record.add_phone("1234567890")
     john_record.add_phone("5555555555")
     john_record.add_birthday("30.10.2000")
-    #book.show_birthday("John")
+    # book.show_birthday("John")
 
     # Додавання запису John до адресної книги
     book.add_record(john_record)
@@ -200,7 +200,7 @@ def main():
     book.add_record(jane_record)
 
     # Виведення всіх записів у книзі
-    #for name, record in book.data.items():
+    # for name, record in book.data.items():
     #    print(record)
 
     # Знаходження та редагування телефону для John
@@ -213,14 +213,13 @@ def main():
     birthdays_per_week = book.get_birthdays_per_week()
     print(birthdays_per_week)
 
-
     # Пошук конкретного телефону у записі John
-    #found_phone = john.find_phone("5555555555")
-    #print(f"{john.name}: {found_phone}")  # Виведення: 5555555555
+    # found_phone = john.find_phone("5555555555")
+    # print(f"{john.name}: {found_phone}")  # Виведення: 5555555555
 
     # Видалення запису Jane
     book.delete("Jane")
 
 
 if __name__ == "__main__":
-    main()
+    print("Do not execute this file.")
