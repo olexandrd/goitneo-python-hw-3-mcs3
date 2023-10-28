@@ -148,8 +148,11 @@ class Record:
         return found_phone
 
     def __str__(self):
-        birthday_str = f", birthday: {self.birthday}" if self.birthday is not None else ""
-        return f"Contact name: {self.name.value}, phones: {'; '.join(p.value for p in self.phones)}{birthday_str}"
+        return f"Contact name: {self.name.value}, phones: {'; '.join(p.value for p in self.phones)}"
+    
+    # def __repr__(self):
+    #     birthday_str = f", birthday: {self.birthday}" if self.birthday is not None else ""
+    #     return f"Contact name: {self.name.value}, phones: {'; '.join(p.value for p in self.phones)}{birthday_str}"
 
 
 class AddressBook(UserDict):
@@ -169,8 +172,8 @@ class AddressBook(UserDict):
     def show_birthday(self, record):
         res = None
         if record in self.data:
-            res = self.data[record].birthday
-        return res
+            res = self.data[record].birthday.value
+        return datetime.strftime(res, "%d.%m%.%Y")
 
     def get_birthdays_per_week(self):
         return BirthdaysPerWeek(self)
