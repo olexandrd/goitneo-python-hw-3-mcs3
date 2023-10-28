@@ -24,5 +24,6 @@ Working on Windows in not guaranteed.
 ### Usage 
 
 ```sh
+cd contacts_assistant/
 python3 main.py
 ```
