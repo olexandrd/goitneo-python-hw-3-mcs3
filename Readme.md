@@ -18,6 +18,8 @@ This application stores information about contacts (phones and birthdays). Appli
 This app was tested on 
 * python 3.9
 * MacOS
+
+
 Working on Windows in not guaranteed. 
 
 
@@ -27,3 +29,8 @@ Working on Windows in not guaranteed.
 cd contacts_assistant/
 python3 main.py
 ```
+
+### ToDO
+
+* add custom exceptions for validation
+* use JSON for data storing 
